@@ -1,0 +1,9 @@
+
+export const CLEAN_STORE = 'CLEAN_STORE';
+
+// Registration
+export const PHONE_NUMBER_SENT = 'PHONE_NUMBER_SENT';
+export const CONFIRMATION_CODE_RESEND = 'CONFIRMATION_CODE_RESEND';
+export const CONFIRM_CODE = 'CONFIRM_CODE';
+export const CLEAN_ERRORS = 'CLEAN_ERRORS';
+export const EXIT_APP = 'EXIT_APP';
