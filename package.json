@@ -1,33 +1,37 @@
 {
-	"name": "TaxiApp",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "16.0.0-alpha.6",
-		"react-native": "0.44.0",
-		"loadash": "0.0.1",
-		"react-native-code-push": "^2.0.0-beta",
-		"react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
-		"react-native-router-flux": "3.38.0",
-		"react-native-svg": "5.1.8",
-		"react-redux": "^5.0.2",
-		"redux": "^3.6.0",
-		"redux-logger": "^3.0.0",
-		"redux-persist": "^4.7.1",
-		"redux-promise-middleware": "4.2.0",
-		"redux-thunk": "^2.2.0"
-	},
-	"devDependencies": {
-		"babel-jest": "20.0.1",
-		"babel-preset-react-native": "1.9.2",
-		"jest": "20.0.1",
-		"react-test-renderer": "16.0.0-alpha.6"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "TaxiApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "build": "tsc -w",
+    "test": "jest"
+  },
+  "dependencies": {
+    "loadash": "0.0.1",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0",
+    "react-native-code-push": "^2.0.0-beta",
+    "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
+    "react-native-router-flux": "3.38.0",
+    "react-native-svg": "5.1.8",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.0",
+    "redux-persist": "^4.7.1",
+    "redux-promise-middleware": "4.2.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^15.0.24",
+    "@types/react-native": "^0.44.1",
+    "babel-jest": "20.0.1",
+    "babel-preset-react-native": "1.9.2",
+    "jest": "20.0.1",
+    "react-test-renderer": "16.0.0-alpha.6",
+    "typescript": "^2.3.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }
