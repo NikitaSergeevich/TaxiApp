@@ -25,6 +25,11 @@
   "devDependencies": {
     "@types/react": "^15.0.24",
     "@types/react-native": "^0.44.1",
+    "@types/redux": "^3.6.31",
+    "@types/redux-logger": "^3.0.0",
+    "@types/redux-persist": "^4.3.1",
+    "@types/redux-promise-middleware": "0.0.6",
+    "@types/redux-thunk": "^2.1.0",
     "babel-jest": "20.0.1",
     "babel-preset-react-native": "1.9.2",
     "jest": "20.0.1",
