@@ -7,8 +7,8 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-    accessToken: '',
-    phoneNumber: '',
+    accessToken: '5q2fx38xxn4h7u98gds5780jkj2y35xhlkhbf',
+    phoneNumber: '+7 999 495 5555',
     init: false
 }
 

@@ -1,14 +1,34 @@
 
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { bindActionCreators } from 'redux'
+const {connect} = require('react-redux')
+import * as Actions from '../actions/index'
+import {UserState} from '../reducers/user'
 
-export default class HelloWorld extends React.Component <null, null>{
+interface Props {
+    user?: UserState
+    actions?: Actions.Interface
+}
+
+@connect(
+    store => ({
+        user: store.user as UserState
+    }),
+    dispatch => ({
+        actions: {
+            user: bindActionCreators(Actions.User as any, dispatch)  
+        } 
+    })
+)
+export default class HelloWorld extends React.Component <Props, null>{
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native! {'\n'}
-          v.0.0.1
+          v.0.0.2 {'\n'}
+          tel: {this.props.user.phoneNumber}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
