@@ -7,6 +7,7 @@ import HelloWorld from './helloworld'
 const store = configureStore()
 
 export default class TaxiApp extends React.Component <null, null>{
+
   render() {
     return (
       <Provider store={store}>
