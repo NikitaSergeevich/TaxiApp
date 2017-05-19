@@ -27,7 +27,7 @@ export default class HelloWorld extends React.Component <Props, null>{
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native! {'\n'}
-          v.0.0.3 {'\n'}
+          v.0.0.5 {'\n'}
           tel: {this.props.user.phoneNumber}
         </Text>
         <Text style={styles.instructions}>
