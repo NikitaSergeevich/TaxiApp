@@ -1,8 +1,4 @@
-'use strict';
-import React, {
-  AppRegistry
-} from 'react-native';
+import {AppRegistry} from 'react-native';
+import TaxiApp from './build/containers/taxiapp';
 
-import App from './app/containers/app.js';
-
-AppRegistry.registerComponent('TaxiApp', () => App);
+AppRegistry.registerComponent('TaxiApp', () => TaxiApp);
