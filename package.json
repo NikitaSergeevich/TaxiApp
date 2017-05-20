@@ -12,6 +12,7 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-code-push": "^2.0.0-beta",
+    "react-native-maps": "^0.15.1",
     "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
     "react-native-router-flux": "3.38.0",
     "react-native-svg": "5.1.8",
