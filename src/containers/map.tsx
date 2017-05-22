@@ -68,16 +68,19 @@ export default class StaticMap extends React.Component <Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-  },
-  
-  scrollview: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingVertical: 40,
   },
   map: {
-    width: 250,
-    height: 250,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
 });
