@@ -80,7 +80,13 @@ export default class OrderModal extends Component {
 
                     </View>
                     <View style={[styles.fieldStyle, styles.letsgoFieldStyle]}>
-
+                        <Button text={"ПОЕХАЛИ"}
+                            isEnabled={this.state.completed}
+                            rootStyle={[keyboardViewStyles.buttonRoot]}
+                            container={[keyboardViewStyles.buttonContainer, { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }]}
+                            textStyle={keyboardViewStyles.buttonText}
+                            disabledTextStyle={keyboardViewStyles.buttonDisabledText}
+                            onPress={() => { this.onGetOrder(); }} />
                     </View>
                 </View>
 
