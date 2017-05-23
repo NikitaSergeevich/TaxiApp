@@ -4,7 +4,6 @@
 
 import React, {Component} from 'react';
 import {AppRegistry, View, Text, TouchableHighlight, StyleSheet} from "react-native";
-import AppText from './apptext'
 
 export default class Button extends Component {
 
@@ -53,7 +52,7 @@ export default class Button extends Component {
             <View style={[styles.rootContainer, this.props.rootStyle]}>
                 <View style={[styles.container, this.props.container, this.props.disabledStyle]}>
                     {this.props.icon}
-                    <AppText style={[styles.text, this.props.textStyle, this.props.disabledTextStyle]}>{this.props.text}</AppText>
+                    <Text style={[styles.text, this.props.textStyle, this.props.disabledTextStyle]}>{this.props.text}</Text>
                 </View>
             </View>
         );
@@ -65,7 +64,7 @@ export default class Button extends Component {
                 underlayColor={'transparent'}>
                 <View style={[styles.container, this.props.container]}>
                     {this.props.icon}
-                    <AppText style={[styles.text, this.props.textStyle]}>{this.props.text}</AppText>
+                    <Text style={[styles.text, this.props.textStyle]}>{this.props.text}</Text>
                 </View>
             </TouchableHighlight>
         );

@@ -7,6 +7,7 @@ import {
     Easing
 } from 'react-native';
 import MapView from 'react-native-maps';
+import OrderModal from '../components/ordermodal';
 
 import { videoModuleStyles } from '../resources/styles';
 
@@ -68,6 +69,7 @@ export default class MainScreen extends Component {
                 >
                     <MapView.Marker.Animated style={{ backgroundColor: '#ccc', transform: [{ rotate: spin }], }} coordinate={{ latitude: 37.78825, longitude: -122.4324 }} image={require('../resources/icons/image.png')} />
                 </MapView>
+                <OrderModal/>
             </Animated.View>
         );
     }
