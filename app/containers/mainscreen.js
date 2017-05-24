@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import OrderModal from '../components/ordermodal';
+import SearchPlace from '../components/searchplace';
 
 import { videoModuleStyles } from '../resources/styles';
 
@@ -50,6 +51,12 @@ export default class MainScreen extends Component {
     }
 
     render() {
+        return (
+            <View>
+             <SearchPlace/>
+            </View>
+        )
+        /*
         const spin = this.state.spinValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
@@ -71,6 +78,6 @@ export default class MainScreen extends Component {
                 </MapView>
                 <OrderModal/>
             </Animated.View>
-        );
+        ); */
     }
 }
