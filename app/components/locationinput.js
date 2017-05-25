@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TextInput, StyleSheet, TouchableHighlight } from 'react-native';
+import { AppRegistry, Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { screenStyles as styles } from '../resources/styles';
 import GeoIcon from '../resources/icons/geoicon';
 
@@ -37,12 +37,16 @@ export default class LocationInput extends Component {
         this.textinput.focus();
     }
 
+    onSelectLocation() {
+        this.setState({isSet : true});
+    }
+
     render() {
         return (
-            <TouchableHighlight style={{ flex: 1 }} onPress={() => { }}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.onSelectLocation() }}>
                 <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
                     <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
-                        <GeoIcon isSelected={this.state.isSet} style={{ alignSelf: 'center' }} />
+                        <GeoIcon isActive={this.state.isSet} style={{ alignSelf: 'center' }} />
                     </View>
                     <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
                         <Text style={{ color: 'black', fontSize: 18 }}>
@@ -50,7 +54,7 @@ export default class LocationInput extends Component {
                         </Text>
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         );
 
     }

@@ -151,7 +151,8 @@ export const keyboardViewStyles = StyleSheet.create({
 })
 
 const expandedContainerHeigth = dim.height * 0.60;
-const filedStyle = dim.height * 0.60 * 0.15;
+const filedStyle = dim.height * 0.35 * 0.22;
+const filedCommentHeigth = dim.height * 0.35 * 0.33;
 
 export const orderModalStyles = StyleSheet.create({
 
@@ -172,7 +173,7 @@ export const orderModalStyles = StyleSheet.create({
         height: expandedContainerHeigth, //Expanded
     },
     modalBody: {
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
     },
     modalBodyCollapsed: {
         height: dim.height * 0.25,
@@ -184,7 +185,7 @@ export const orderModalStyles = StyleSheet.create({
     // Fileds style
     fieldStyle: {
         borderBottomWidth: 1,
-        backgroundColor: 'red'
+        borderBottomColor: 'grey'
     },
     geoFieldStyle: {
         borderRadius: 20,
@@ -193,22 +194,21 @@ export const orderModalStyles = StyleSheet.create({
     },
     rateFieldStyle: {
         height: filedStyle,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
     },
     timeandpaymenttypeFieldStyle: {
         height: filedStyle,
-        backgroundColor: 'red',
+        backgroundColor: 'white',
+        flexDirection: 'row'
     },
     commentFieldStyle: {
-        height: filedStyle,
-        backgroundColor: 'black',
+        height: filedCommentHeigth,
+        backgroundColor: 'white',
     },
     letsgoFieldStyle: {
         height: filedStyle,
         backgroundColor: 'transparent',
     },
-
-
 
     //Order Button
     buttonRoot: {

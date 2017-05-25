@@ -6,7 +6,7 @@ import { View, Image, StyleSheet, Dimensions, PixelRatio, TouchableHighlight } f
 import Svg, { Path, Circle, Defs, LinearGradient, Stop, G, ClipPath, Rect } from 'react-native-svg'
 const dim = Dimensions.get('window');
 
-export default class GeoIcon extends Component {
+export default class HamburderIcon extends Component {
 
     render() {
         let height = "";
@@ -27,11 +27,7 @@ export default class GeoIcon extends Component {
 
         let icon = null;
 
-        if (this.props.isActive) {
-            icon = <Image source={require('../images/drawable-hdpi/ic_minipin_active.png')} />;
-        } else {
-            icon = <Image source={require('../images/drawable-hdpi/ic_minipin_inactive.png')} />;
-        }
+        icon = <Image source={require('../images/drawable-hdpi/ic_menu.png')} />;
 
         return (
             <View style={{ alignItems: 'center' }}>

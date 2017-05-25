@@ -4,11 +4,16 @@ import {
     Text,
     StatusBar,
     Animated,
-    Easing
+    Easing,
+    TouchableOpacity
 } from 'react-native';
 import MapView from 'react-native-maps';
 import LocationInput from '../components/locationinput';
 import Button from "../components/button";
+import RateIcon from '../resources/icons/rateicon';
+import TimeIcon from '../resources/icons/timeicon';
+import PaymentTypeIcon from '../resources/icons/paymenttypeicon';
+import QuotesIcon from '../resources/icons/quotesicon';
 
 import { orderModalStyles as styles, keyboardViewStyles } from '../resources/styles';
 
@@ -26,7 +31,7 @@ export default class OrderModal extends Component {
     }
 
     componentDidMount() {
-        this.toggle();
+        //this.toggle();
     }
 
     toggle() {
@@ -66,18 +71,66 @@ export default class OrderModal extends Component {
         return (
             <View style={[styles.modalContainer, this.state.isExpanded ? styles.modalExpanded : styles.modalCollapsed]}>
                 <View style={[styles.modalBody, this.state.isExpanded ? styles.modalBodyExpanded : styles.modalBodyCollapsed]}>
-                    <View style={[styles.fieldStyle, styles.geoFieldStyle]}>
+                    <View style={[
+                        styles.fieldStyle,
+                        styles.geoFieldStyle,
+                        this.state.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}>
                         <LocationInput />
                         <LocationInput />
                     </View>
                     <View style={[styles.fieldStyle, styles.rateFieldStyle]}>
-
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
+                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
+                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
+                                    <RateIcon isActive={this.state.isSet} style={{ alignSelf: 'center' }} />
+                                </View>
+                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'black', fontSize: 18 }}>
+                                        {"Эконом; от 99Р"}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.fieldStyle, styles.timeandpaymenttypeFieldStyle]}>
-
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
+                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
+                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
+                                    <TimeIcon isActive={this.state.isSet} />
+                                </View>
+                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'black', fontSize: 18 }}>
+                                        {"Ближайшие"}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
+                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
+                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
+                                    <PaymentTypeIcon style={{ alignSelf: 'center' }} />
+                                </View>
+                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'black', fontSize: 18 }}>
+                                        {"Наличные"}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.fieldStyle, styles.commentFieldStyle]}>
-
+                        <TouchableOpacity style={{ flex: 1, paddingTop: 20 }} onPress={() => { }}>
+                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
+                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
+                                    <QuotesIcon style={{ alignSelf: 'center' }} />
+                                </View>
+                                <View style={{ flex: 7, paddingTop: 30, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'black', fontSize: 18 }}>
+                                        {"Оставьте комментарий"}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.fieldStyle, styles.letsgoFieldStyle]}>
                         <Button text={"ПОЕХАЛИ"}
