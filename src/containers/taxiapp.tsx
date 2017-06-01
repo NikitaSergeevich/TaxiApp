@@ -2,8 +2,9 @@
 import * as React from 'react';
 import { Provider, Store } from 'react-redux';
 import configureStore from '../store'
-import HelloWorld from './helloworld'
-import StaticMap from './map'
+// import HelloWorld from './helloworld'
+import CityMap from './map'
+import MainScreen from '../screens/main'
 
 const store = configureStore()
 
@@ -13,7 +14,8 @@ export default class TaxiApp extends React.Component <null, null>{
     return (
       <Provider store={store}>
         {/*<HelloWorld/>*/}
-        <StaticMap />
+        <CityMap />
+        {/*<MainScreen/>*/}
       </Provider>
     );
   }

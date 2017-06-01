@@ -3,9 +3,9 @@ import {
   StyleSheet,
   View,
   Text,
-  Dimensions,
-  ScrollView,
+  Dimensions
 } from 'react-native';
+
 const MapView = require('react-native-maps');
 
 const { width, height } = Dimensions.get('window');
@@ -29,7 +29,8 @@ interface State {
     region: Region
 }
 
-export default class StaticMap extends React.Component <Props, State> {
+export default class CityMap extends React.Component <Props, State> {
+
   constructor(props) {
     super(props);
 
@@ -43,17 +44,19 @@ export default class StaticMap extends React.Component <Props, State> {
     };
   }
 
-   render() {
+  render() {
+   
     return (
       <View style={styles.container}>
           <MapView
             provider={this.props.provider}
             style={styles.map}
-            scrollEnabled={false}
-            zoomEnabled={false}
+            //scrollEnabled={false}
+            //zoomEnabled={false}
             pitchEnabled={false}
             rotateEnabled={false}
             initialRegion={this.state.region}
+            customMapStyle={customStyle}
           >
             <MapView.Marker
                 title="This is a title"
@@ -79,8 +82,21 @@ const styles = StyleSheet.create({
   map: {
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    bottom: -30,
     left: 0,
     right: 0
   },
 });
+
+ const customStyle =  [
+        {
+          featureType: 'poi.business', 
+          elementType: 'labels',
+          stylers: [
+            {
+              visibility: 'off'
+            }
+          ]
+        }
+        
+    ]

@@ -93,6 +93,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -135,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-blur')
     compile project(':react-native-maps')
     compile project(':react-native-orientation')
     compile project(':react-native-svg')
