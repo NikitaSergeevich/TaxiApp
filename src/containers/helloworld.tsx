@@ -1,10 +1,11 @@
 
 import * as React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import { bindActionCreators } from 'redux'
-const {connect} = require('react-redux')
 import * as Actions from '../actions/index'
 import {UserState} from '../reducers/user'
+
+const {connect} = require('react-redux')
 
 interface Props {
     user?: UserState
@@ -25,6 +26,7 @@ export default class HelloWorld extends React.Component <Props, null>{
   render() {
     return (
       <View style={styles.container}>
+        <Image source={require('../resources/images/map.png')}/>
         <Text style={styles.welcome}>
           Welcome to React Native! {'\n'}
           v.0.0.5 {'\n'}

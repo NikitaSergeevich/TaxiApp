@@ -15,7 +15,6 @@
             "paths": {
                   "redux-thunk": ["./node_modules/redux-thunk/index.d.ts"],
                   "redux-persist":["./node_modules/redux-persist/lib/index.d.ts"]
-
             }
   },
   "exclude": [
