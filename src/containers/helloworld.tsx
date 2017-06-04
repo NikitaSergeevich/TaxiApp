@@ -1,10 +1,11 @@
 
 import * as React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { bindActionCreators } from 'redux'
-const {connect} = require('react-redux')
 import * as Actions from '../actions/index'
 import {UserState} from '../reducers/user'
+const {connect} = require('react-redux')
+const {phonecall} = require('react-native-communications')
 
 interface Props {
     user?: UserState
@@ -21,7 +22,8 @@ interface Props {
         } 
     })
 )
-export default class HelloWorld extends React.Component <Props, null>{
+export default class HelloWorld extends React.Component <Props, null> {
+  
   render() {
     return (
       <View style={styles.container}>
@@ -37,6 +39,10 @@ export default class HelloWorld extends React.Component <Props, null>{
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        <TouchableHighlight style={styles.button}
+          onPress={()=>phonecall('+7 999 123 4567', true)}>
+          <Text style={styles.instructions}>Call</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -48,6 +54,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  button:{
+    height: '5%',
+    width: '80%',
+    backgroundColor: '#FF88FF',
+    margin: 10,
   },
   welcome: {
     fontSize: 20,
