@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 import { bindActionCreators } from 'redux'
 import * as Actions from '../actions/index'
 import {UserState} from '../reducers/user'
@@ -26,7 +26,8 @@ export default class HelloWorld extends React.Component <Props, null>{
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../resources/images/map.png')}/>
+        <Image style={styles.image}
+          source={require('../resources/images/map.png')}>
         <Text style={styles.welcome}>
           Welcome to React Native! {'\n'}
           v.0.0.5 {'\n'}
@@ -37,8 +38,10 @@ export default class HelloWorld extends React.Component <Props, null>{
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          Cmd+D or shake for dev menu{'\n'}
+          {Platform.OS}
         </Text>
+        </Image>
       </View>
     );
   }
@@ -51,14 +54,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  image: {
+    flex: 1
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    backgroundColor: 'rgba(180,180,180,.4)'
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#000000',
     marginBottom: 5,
+    backgroundColor: 'transparent'
   },
 });
