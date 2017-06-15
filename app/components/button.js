@@ -3,7 +3,14 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, View, Text, TouchableHighlight, StyleSheet} from "react-native";
+import {
+    AppRegistry, 
+    View, 
+    Text, 
+    TouchableHighlight,
+    TouchableOpacity,
+    StyleSheet
+} from "react-native";
 
 export default class Button extends Component {
 
@@ -58,7 +65,7 @@ export default class Button extends Component {
         );
 
         let enabledButton = (
-            <TouchableHighlight activeOpacity={0.6} style={[styles.rootContainer, this.props.rootStyle]}
+            <TouchableOpacity activeOpacity={0.6} style={[styles.rootContainer, this.props.rootStyle]}
                 onPress={() => this.handlePress() }
                 onLayout={this.measureView.bind(this) }
                 underlayColor={'transparent'}>
@@ -66,7 +73,7 @@ export default class Button extends Component {
                     {this.props.icon}
                     <Text style={[styles.text, this.props.textStyle]}>{this.props.text}</Text>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         );
 
         let invisibleButton = (

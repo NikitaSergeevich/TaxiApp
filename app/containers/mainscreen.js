@@ -5,13 +5,18 @@ import {
     StatusBar,
     Animated,
     Easing,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions,
+    StyleSheet
 } from 'react-native';
 import MapView from 'react-native-maps';
+
 import OrderModal from '../components/ordermodal';
 import HamburderIcon from '../resources/icons/hamburdericon';
 
 import { videoModuleStyles } from '../resources/styles';
+
+var dim = Dimensions.get('window');
 
 export default class MainScreen extends Component {
 
@@ -21,7 +26,10 @@ export default class MainScreen extends Component {
         this.state = {
             title: '',
             expanded: false,
-            animation: new Animated.Value(0),
+            mapClosed: false,
+            heightAnimation: new Animated.Value(dim.height),
+            topAnimation: new Animated.Value(0),
+            radiusAnimation: 40,
             minHeight: 2,
             maxHeight: 0,
             spinValue: new Animated.Value(0),
@@ -35,60 +43,66 @@ export default class MainScreen extends Component {
         };
     }
 
-    componentDidMount() {
-        this.toggle();
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        //let offset = dim.height - nextProps.drawerRatio * 60;
+
+        //Expanding / Collapsing Radius and Heigth
+        //this.setState({ heightAnimation: new Animated.Value(offset) });
+        /*Animated.timing(
+            this.state.heightAnimation,
+            {
+                toValue: offset,
+                duration: 0.01,
+            }
+        ).start()*/
+        /*Animated.timing(
+            this.state.radiusAnimation,
+            {
+                toValue: 100,
+                duration: 0.01,
+            }
+        ).start()*/
+    }
+
+    onHamButtonPressed() {
+        if (this.state.mapClosed) {
+            this.props.onHamButtonPressed('open');
+            this.setState({ mapClosed: false });
+        } else {
+            this.props.onHamButtonPressed('close');
+            this.setState({ mapClosed: true });
+        }
+
+        //Collapsing
+        /*Animated.timing(
+            this.state.heightAnimation,
+            {
+                toValue: dim.height + 60,
+                duration: 0.5,
+            }
+        ).start();*/
+    }
+
+    openMap() {
+        /*Animated.timing(
+            this.state.heightAnimation,
+            {
+                toValue: dim.height,
+                duration: 0.5,
+            }
+        ).start()*/
     }
 
     // TODO check if geo enabled
     // Do not work with high accurancy
     // Enable geo in emulator
     getMyGeoLocation() {
-        console.log("lol");
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                //var initialPosition = JSON.stringify(position);
-                let c = {
-                    latitude: Number(position.coords.latitude), // selected marker lat
-                    longitude: Number(position.coords.longitude) // selected marker lng
-                }
-                console.log(c);
-                //var { region } = this.state.userCurrentRegion;
-                this.refs.map.animateToCoordinate(c, 10000);
 
-
-                /*this.setState({
-                    userCurrentRegion: {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        latitudeDelta: this.state.userCurrentRegion.latitudeDelta,
-                        longitudeDelta: this.state.userCurrentRegion.longitudeDelta
-                    }
-                });*/
-            },
-            (error) => {
-                console.log(error);
-            },
-            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-        );
     }
 
     toggle() {
-        /*Animated.timing(
-            this.state.animation,
-            {
-                duration: 3000,
-                toValue: 20,
-            }
-        ).start();*/
 
-        Animated.timing(
-            this.state.spinValue,
-            {
-                toValue: 1,
-                duration: 3000,
-                easing: Easing.linear
-            }
-        ).start()
     }
 
     render() {
@@ -96,34 +110,33 @@ export default class MainScreen extends Component {
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
         })
+
+        let hambutton = null
+        if (this.props.open) {
+            hambutton = (
+                <TouchableOpacity onPress={() => { this.onHamButtonPressed() } }
+                    style={{ height: '10%', width: '20%', position: 'absolute', top: 10, left: 10, justifyContent: 'center' }}>
+                    <HamburderIcon />
+                </TouchableOpacity>
+            )
+        }
+
         return (
-            <Animated.View style={{ position: 'absolute', top: this.state.animation, bottom: this.state.animation, left: 0, right: 0 }}>
+            <View style={{flex: 1}}>
                 <MapView
                     ref={"map"}
-                    //onRegionChange={(e) => (console.log(e))}
-                    style={{
-                        flex: 1
-                    }}
+                    style={{ flex: 1 }}
                     region={this.state.userCurrentRegion}
                     initialRegion={{
                         latitude: 55.037452,
                         longitude: 82.933740,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
-                    }}
-                >
-                    <MapView.Marker.Animated style={{ backgroundColor: '#ccc', transform: [{ rotate: spin }], }} coordinate={{ latitude: 37.78825, longitude: -122.4324 }} image={require('../resources/icons/image.png')} />
-                </MapView>
+                    }}/>
                 <OrderModal />
-
-                <TouchableOpacity onPress={() => { this.getMyGeoLocation() }} style={{ backgroundColor: 'red', height: 30, width: 30, position: 'absolute', top: 300, right: 20, borderRadius: 15 }}>
-
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { this.getMyGeoLocation() }}
-                    style={{ height: 60, width: 60, position: 'absolute', top: 50, left: 20 }}>
-                    <HamburderIcon />
-                </TouchableOpacity>
-            </Animated.View>
+                <View style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 20, backgroundColor: 'transparent' }}/>
+                {hambutton}
+            </View>
         );
     }
 }
