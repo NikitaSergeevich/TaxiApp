@@ -5,7 +5,9 @@ import {
     StatusBar,
     Animated,
     Easing,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet,
+    Dimensions
 } from 'react-native';
 import MapView from 'react-native-maps';
 import LocationInput from '../components/locationinput';
@@ -14,6 +16,11 @@ import RateIcon from '../resources/icons/rateicon';
 import TimeIcon from '../resources/icons/timeicon';
 import PaymentTypeIcon from '../resources/icons/paymenttypeicon';
 import QuotesIcon from '../resources/icons/quotesicon';
+var dim = Dimensions.get('window');
+const expandedContainerHeight = dim.height * 0.90;
+const expandedBodyHeight = dim.height * 0.60;
+const collapsedContainerHeight = dim.height * 0.25;
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 import { orderModalStyles as styles, keyboardViewStyles } from '../resources/styles';
 
@@ -26,8 +33,13 @@ export default class OrderModal extends Component {
             title: '',
             isExpanded: false,
             completed: true,
-            heigthAnimation: new Animated.Value(0),
+            modalContainerHeight: new Animated.Value(collapsedContainerHeight),
+            modalBodyHeight: new Animated.Value(collapsedContainerHeight),
         };
+    }
+
+    componentWillMount() {
+        //this.toggle();
     }
 
     componentDidMount() {
@@ -36,116 +48,76 @@ export default class OrderModal extends Component {
 
     toggle() {
         this.setState({ isExpanded: true });
-        setTimeout(() => {
+        /*setTimeout(() => {
+            Animated.timing(
+                this.state.modalContainerHeight,
+                {
+                    duration: 300,
+                    toValue: collapsedContainerHeight,
+                }
+            ).start();
             this.setState({ isExpanded: false });
-        }, 3000);
+        }, 3000);*/
         Animated.timing(
-            this.state.heigthAnimation,
+            this.state.modalContainerHeight,
             {
-                duration: 3000,
-                toValue: 20,
+                duration: 300,
+                toValue: expandedContainerHeight,
+            }
+        ).start();
+        Animated.timing(
+            this.state.modalBodyHeight,
+            {
+                duration: 300,
+                toValue: expandedBodyHeight,
             }
         ).start();
     }
 
-    onGetOrder() {
+    expandModal() {
         this.toggle();
     }
 
+    onSwipeDown(state) {
+        Animated.timing(
+            this.state.modalContainerHeight,
+            {
+                duration: 300,
+                toValue: collapsedContainerHeight,
+            }
+        ).start();
+        Animated.timing(
+            this.state.modalBodyHeight,
+            {
+                duration: 300,
+                toValue: collapsedContainerHeight,
+            }
+        ).start();
+    }
+
     render() {
-
+        const config = {
+            velocityThreshold: 0.01,
+            directionalOffsetThreshold: 25
+        };
         let makeOrderButton = null
-
-        if (!this.state.isExpanded) {
-            makeOrderButton = (
-                <Button text={"ЗАКАЗАТЬ"}
-                    isEnabled={this.state.completed}
-                    rootStyle={styles.buttonRoot}
-                    container={styles.buttonContainer}
-                    textStyle={keyboardViewStyles.buttonText}
-                    disabledTextStyle={keyboardViewStyles.buttonDisabledText}
-                    onPress={() => { this.onGetOrder(); }} />
-            )
-        }
-
         return (
-            <View style={[styles.modalContainer, this.state.isExpanded ? styles.modalExpanded : styles.modalCollapsed]}>
-                <View style={[styles.modalBody, this.state.isExpanded ? styles.modalBodyExpanded : styles.modalBodyCollapsed]}>
+            <Animated.View style={[styles.modalContainer, { height: this.state.modalContainerHeight }]}>
+                <GestureRecognizer
+                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, top: 0, backgroundColor: 'transparent', }}
+                    config={ config }
+                    onSwipeDown={(state) => this.onSwipeDown(state) }/>
+                <Animated.View style={[styles.modalBody, { height: this.state.modalBodyHeight }]}>
                     <View style={[
                         styles.fieldStyle,
                         styles.geoFieldStyle,
-                        this.state.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}>
+                        this.state.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}
+                        >
                         <LocationInput />
                         <LocationInput />
-                    </View>
-                    <View style={[styles.fieldStyle, styles.rateFieldStyle]}>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
-                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
-                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
-                                    <RateIcon isActive={this.state.isSet} style={{ alignSelf: 'center' }} />
-                                </View>
-                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: 'black', fontSize: 18 }}>
-                                        {"Эконом; от 99Р"}
-                                    </Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.fieldStyle, styles.timeandpaymenttypeFieldStyle]}>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
-                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
-                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
-                                    <TimeIcon isActive={this.state.isSet} />
-                                </View>
-                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: 'black', fontSize: 18 }}>
-                                        {"Ближайшие"}
-                                    </Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { }}>
-                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
-                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center' }}>
-                                    <PaymentTypeIcon style={{ alignSelf: 'center' }} />
-                                </View>
-                                <View style={{ flex: 3, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: 'black', fontSize: 18 }}>
-                                        {"Наличные"}
-                                    </Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.fieldStyle, styles.commentFieldStyle]}>
-                        <TouchableOpacity style={{ flex: 1, paddingTop: 20 }} onPress={() => { }}>
-                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
-                                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
-                                    <QuotesIcon style={{ alignSelf: 'center' }} />
-                                </View>
-                                <View style={{ flex: 7, paddingTop: 30, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: 'black', fontSize: 18 }}>
-                                        {"Оставьте комментарий"}
-                                    </Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.fieldStyle, styles.letsgoFieldStyle]}>
-                        <Button text={"ПОЕХАЛИ"}
-                            isEnabled={this.state.completed}
-                            rootStyle={[keyboardViewStyles.buttonRoot]}
-                            container={[keyboardViewStyles.buttonContainer, { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }]}
-                            textStyle={keyboardViewStyles.buttonText}
-                            disabledTextStyle={keyboardViewStyles.buttonDisabledText}
-                            onPress={() => { this.onGetOrder(); }} />
-                    </View>
-                </View>
-
-                {makeOrderButton}
-
-            </View>
+                    </View >
+                </Animated.View>
+            </Animated.View>
         );
     }
 }

@@ -10,11 +10,11 @@ import {
     StyleSheet
 } from 'react-native';
 import MapView from 'react-native-maps';
-
+import Button from "../components/button";
 import OrderModal from '../components/ordermodal';
 import HamburderIcon from '../resources/icons/hamburdericon';
 
-import { videoModuleStyles } from '../resources/styles';
+import { orderModalStyles as styles, videoModuleStyles, keyboardViewStyles } from '../resources/styles';
 
 var dim = Dimensions.get('window');
 
@@ -66,13 +66,15 @@ export default class MainScreen extends Component {
     }
 
     onHamButtonPressed() {
-        if (this.state.mapClosed) {
+        /*if (this.state.mapClosed) {
             this.props.onHamButtonPressed('open');
             this.setState({ mapClosed: false });
         } else {
             this.props.onHamButtonPressed('close');
             this.setState({ mapClosed: true });
-        }
+        }*/
+
+        this.refs.map.getProjection(20, 20, 300);
 
         //Collapsing
         /*Animated.timing(
@@ -105,13 +107,21 @@ export default class MainScreen extends Component {
 
     }
 
+    onGetOrder() {
+        this._modal.expandModal();
+    }
+
     render() {
         const spin = this.state.spinValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
         })
 
-        let hambutton = null
+
+        let hambutton = null;
+        let makeOrderButton = null;
+        let orderModal = null;
+        let gestureView = null;
         if (this.props.open) {
             hambutton = (
                 <TouchableOpacity onPress={() => { this.onHamButtonPressed() } }
@@ -119,13 +129,25 @@ export default class MainScreen extends Component {
                     <HamburderIcon />
                 </TouchableOpacity>
             )
+            orderModal = (
+                <OrderModal ref={(ref) => this._modal = ref}/>
+            )
+            makeOrderButton = (
+                <Button text={"ЗАКАЗАТЬ"}
+                    isEnabled={true}
+                    rootStyle={styles.buttonRoot}
+                    container={styles.buttonContainer}
+                    textStyle={keyboardViewStyles.buttonText}
+                    disabledTextStyle={keyboardViewStyles.buttonDisabledText}
+                    onPress={() => { this.onGetOrder(); } } />
+            )
         }
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <MapView
                     ref={"map"}
-                    style={{ flex: 1 }}
+                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, top: 0, }}
                     region={this.state.userCurrentRegion}
                     initialRegion={{
                         latitude: 55.037452,
@@ -133,9 +155,10 @@ export default class MainScreen extends Component {
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}/>
-                <OrderModal />
                 <View style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 20, backgroundColor: 'transparent' }}/>
                 {hambutton}
+                {orderModal}
+                {makeOrderButton}
             </View>
         );
     }

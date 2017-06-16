@@ -160,11 +160,10 @@ export const orderModalStyles = StyleSheet.create({
 
     modalContainer: {
         position: 'absolute',
-        bottom: 10,
-        left: 10,
-        right: 10,
+        bottom: '20%',
+        left: '7%',
+        right: '7%',
         backgroundColor: 'transparent',
-        justifyContent: 'space-between'
     },
     modalCollapsed: {
         height: dim.height * 0.25 + dim.height * 0.05 + dim.height * 0.07,
@@ -173,6 +172,10 @@ export const orderModalStyles = StyleSheet.create({
         height: expandedContainerHeigth, //Expanded
     },
     modalBody: {
+        position: 'absolute',
+        bottom: '0%',
+        left: '0%',
+        right: '0%',
         backgroundColor: 'transparent',
     },
     modalBodyCollapsed: {
@@ -212,15 +215,17 @@ export const orderModalStyles = StyleSheet.create({
 
     //Order Button
     buttonRoot: {
+        position: 'absolute',
+        bottom: '1%',
         alignSelf: 'center',
-        height: dim.height * 0.07,
-        width: dim.width / 2,
+        height: '9.5%',
+        width: '50.5%',
         flexDirection: 'row',
         margin: 0,
         padding: 2,
     },
     buttonContainer: {
-        elevation: 1,
+        //elevation: 1,
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: 'transparent',
