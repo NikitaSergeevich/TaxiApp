@@ -172,11 +172,8 @@ export const orderModalStyles = StyleSheet.create({
         height: expandedContainerHeigth, //Expanded
     },
     modalBody: {
-        position: 'absolute',
-        bottom: '0%',
-        left: '0%',
-        right: '0%',
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
+        borderRadius: 20,
     },
     modalBodyCollapsed: {
         height: dim.height * 0.25,
@@ -234,5 +231,4 @@ export const orderModalStyles = StyleSheet.create({
         borderRadius: 10,
         flex: 1,
     },
-
 })

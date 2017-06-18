@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import {
     Dimensions,
+    PixelRatio
 } from 'react-native';
-const dim = Dimensions.get('window');
+
+export function getSource() {
+ 
+    return;
+}

@@ -4,119 +4,97 @@ import {
     Text,
     StatusBar,
     Animated,
-    Easing,
     TouchableOpacity,
     StyleSheet,
     Dimensions
 } from 'react-native';
-import MapView from 'react-native-maps';
-import LocationInput from '../components/locationinput';
-import Button from "../components/button";
-import RateIcon from '../resources/icons/rateicon';
-import TimeIcon from '../resources/icons/timeicon';
-import PaymentTypeIcon from '../resources/icons/paymenttypeicon';
-import QuotesIcon from '../resources/icons/quotesicon';
 var dim = Dimensions.get('window');
-const expandedContainerHeight = dim.height * 0.90;
-const expandedBodyHeight = dim.height * 0.60;
-const collapsedContainerHeight = dim.height * 0.25;
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-
+import Interactable from 'react-native-interactable';
 import { orderModalStyles as styles, keyboardViewStyles } from '../resources/styles';
+const MAX_CONTAINER_HEIGHT = dim.height * 0.70;
+const MIN_CONTAINER_HEIGHT = dim.height * 0.25;
 
 export default class OrderModal extends Component {
 
     constructor(props) {
         super(props);
-
+        this._deltaY = new Animated.Value(0);
+        this.height = new Animated.Value(MIN_CONTAINER_HEIGHT);
+        this.modalContainerHeight = new Animated.Value(MIN_CONTAINER_HEIGHT);
+        this._deltaY.addListener(({value}) => {
+            let result = MAX_CONTAINER_HEIGHT - value - 60;
+            if (result < MIN_CONTAINER_HEIGHT) {
+                result = MIN_CONTAINER_HEIGHT;
+            }
+            this.height.setValue(result);
+        });
         this.state = {
-            title: '',
             isExpanded: false,
-            completed: true,
-            modalContainerHeight: new Animated.Value(collapsedContainerHeight),
-            modalBodyHeight: new Animated.Value(collapsedContainerHeight),
         };
-    }
-
-    componentWillMount() {
-        //this.toggle();
-    }
-
-    componentDidMount() {
-        //this.toggle();
-    }
-
-    toggle() {
-        this.setState({ isExpanded: true });
-        /*setTimeout(() => {
-            Animated.timing(
-                this.state.modalContainerHeight,
-                {
-                    duration: 300,
-                    toValue: collapsedContainerHeight,
-                }
-            ).start();
-            this.setState({ isExpanded: false });
-        }, 3000);*/
-        Animated.timing(
-            this.state.modalContainerHeight,
-            {
-                duration: 300,
-                toValue: expandedContainerHeight,
-            }
-        ).start();
-        Animated.timing(
-            this.state.modalBodyHeight,
-            {
-                duration: 300,
-                toValue: expandedBodyHeight,
-            }
-        ).start();
     }
 
     expandModal() {
-        this.toggle();
+        this.open();
     }
 
-    onSwipeDown(state) {
+    open() {
         Animated.timing(
-            this.state.modalContainerHeight,
+            this.modalContainerHeight,
             {
                 duration: 300,
-                toValue: collapsedContainerHeight,
+                toValue: MAX_CONTAINER_HEIGHT,
             }
-        ).start();
+        ).start(() => { this.setState({ isExpanded: true }) });
         Animated.timing(
-            this.state.modalBodyHeight,
+            this.height,
             {
                 duration: 300,
-                toValue: collapsedContainerHeight,
+                toValue: MAX_CONTAINER_HEIGHT - 60,
             }
-        ).start();
+        ).start(() => { this.setState({ isExpanded: true }) });
+    }
+
+    onSnap(event) {
+        const snapPointId = event.nativeEvent.id;
+        if (snapPointId == 'close') {
+            this.height.setValue(MIN_CONTAINER_HEIGHT);
+            this.modalContainerHeight.setValue(MIN_CONTAINER_HEIGHT);
+            this.setState({ isExpanded: false });
+            this.props.onClose();
+        }
     }
 
     render() {
-        const config = {
-            velocityThreshold: 0.01,
-            directionalOffsetThreshold: 25
-        };
-        let makeOrderButton = null
+        let view = null;
+        let style = null;
+        if (this.state.isExpanded) {
+            view = (
+                <Interactable.View
+                    style={{
+                        flex: 1,
+                        backgroundColor: 'transparent'
+                    }}
+                    verticalOnly={true}
+                    snapPoints={[{ y: 0, id: 'open' }, { y: MAX_CONTAINER_HEIGHT - MIN_CONTAINER_HEIGHT, id: 'close' }]}
+                    onSnap={(e) => { this.onSnap(e) } }
+                    animatedValueY={this._deltaY}>
+                </Interactable.View>
+            )
+        }
+
+
         return (
-            <Animated.View style={[styles.modalContainer, { height: this.state.modalContainerHeight }]}>
-                <GestureRecognizer
-                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, top: 0, backgroundColor: 'transparent', }}
-                    config={ config }
-                    onSwipeDown={(state) => this.onSwipeDown(state) }/>
-                <Animated.View style={[styles.modalBody, { height: this.state.modalBodyHeight }]}>
-                    <View style={[
-                        styles.fieldStyle,
-                        styles.geoFieldStyle,
-                        this.state.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}
-                        >
-                        <LocationInput />
-                        <LocationInput />
-                    </View >
-                </Animated.View>
+            <Animated.View style={[styles.modalContainer, { height: this.modalContainerHeight }]}>
+                {view}
+                <Animated.View style={{
+                    backgroundColor: 'white',
+                    borderRadius: 20,
+                    height: this.height,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    position: 'absolute'
+                }}/>
             </Animated.View>
         );
     }

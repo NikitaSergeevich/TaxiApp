@@ -2,15 +2,30 @@
  * Created by innopolis on 15.12.16.
  */
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, Dimensions, PixelRatio, TouchableHighlight } from "react-native";
-import Svg, { Path, Circle, Defs, LinearGradient, Stop, G, ClipPath, Rect } from 'react-native-svg'
+import { View,
+    Image,
+    StyleSheet,
+    Dimensions,
+    PixelRatio,
+    TouchableHighlight,
+    Animated
+} from "react-native";
 const dim = Dimensions.get('window');
+import resolveAssetSource from 'resolveAssetSource';
+import {getSource} from '../../services/utils';
 
-export default class HamburderIcon extends Component {
+export default class PinIcon extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isExpanded: false,
+        };
+    }
 
     render() {
         let ratio = PixelRatio.get();
-        let source = '';
+        let source = ''
         switch (ratio) {
             case 0:
                 source = require('../images/drawable-ldpi/pin.png');
@@ -22,10 +37,10 @@ export default class HamburderIcon extends Component {
                 source = require('../images/drawable-hdpi/pin.png');
                 break;*/
             case 2:
-                source = require('../images/drawable-mdpi/ic_menu.png');
+                source = require('../images/drawable-mdpi/pin.png');
                 break;
             case 3:
-                source = require('../images/drawable-hdpi/ic_menu.png');
+                source = require('../images/drawable-mdpi/pin.png');
                 break;
             /*case 3.5:
                 source = require('../images/drawable-xxxhdpi/pin.png');
@@ -33,13 +48,14 @@ export default class HamburderIcon extends Component {
             default:
                 break;
         }
-
-        let icon = null;
-        icon = <Image source={source} />;
+        let l = resolveAssetSource(source);
+        console.log(l);
+        let position = (dim.width - l.width) / 2 ;
+        let icon = <Image source={ source } />;
         return (
-            <View style={{ alignItems: 'center' }}>
+            <Animated.View style={[this.props.style, { alignItems: 'center', right: position}]}>
                 {icon}
-            </View>
+            </Animated.View>
         )
     }
 }
