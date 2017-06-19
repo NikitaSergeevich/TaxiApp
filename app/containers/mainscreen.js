@@ -15,8 +15,7 @@ import Button from "../components/button";
 import OrderModal from '../components/ordermodal';
 import HamburderIcon from '../resources/icons/hamburdericon';
 import PinIcon from '../resources/icons/pinicon';
-
-import { orderModalStyles as styles, videoModuleStyles, keyboardViewStyles } from '../resources/styles';
+import { mainScreenStyles as styles, sizeconsts } from '../resources/styles';
 
 var dim = Dimensions.get('window');
 
@@ -26,17 +25,10 @@ export default class MainScreen extends Component {
         super(props);
 
         this.initialPosition = null;
+        this.makeOrderButtonYPosition = new Animated.Value(sizeconsts.TAKE_ORDER_TOP_POSITION);
         this.state = {
-            title: '',
-            expanded: false,
-            mapClosed: false,
-            heightAnimation: new Animated.Value(dim.height),
-            topAnimation: new Animated.Value(0),
-            radiusAnimation: 40,
-            minHeight: 2,
-            maxHeight: 0,
             spinValue: new Animated.Value(0),
-            yMarkerPosition: new Animated.Value((dim.height - dim.height * (0.25 + 0.20)) / 2),
+            yMarkerPosition: new Animated.Value(sizeconsts.PIN_BOTTOM_POSITION),
             userCurrentRegion: {
                 latitude: 37.78825,
                 longitude: -122.4324,
@@ -48,55 +40,10 @@ export default class MainScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
-        //let offset = dim.height - nextProps.drawerRatio * 60;
-
-        //Expanding / Collapsing Radius and Heigth
-        //this.setState({ heightAnimation: new Animated.Value(offset) });
-        /*Animated.timing(
-            this.state.heightAnimation,
-            {
-                toValue: offset,
-                duration: 0.01,
-            }
-        ).start()*/
-        /*Animated.timing(
-            this.state.radiusAnimation,
-            {
-                toValue: 100,
-                duration: 0.01,
-            }
-        ).start()*/
     }
 
     onHamButtonPressed() {
         this.props.onHamButtonPressed();
-        /*if (this.state.mapClosed) {
-            this.props.onHamButtonPressed('open');
-            this.setState({ mapClosed: false });
-        } else {
-            this.props.onHamButtonPressed('close');
-            this.setState({ mapClosed: true });
-        }*/
-
-
-        //Collapsing
-        /*Animated.timing(
-            this.state.heightAnimation,
-            {
-                toValue: dim.height + 60,
-                duration: 0.5,
-            }
-        ).start();*/
-    }
-
-    openMap() {
-        /*Animated.timing(
-            this.state.heightAnimation,
-            {
-                toValue: dim.height,
-                duration: 0.5,
-            }
-        ).start()*/
     }
 
     // TODO check if geo enabled
@@ -106,65 +53,69 @@ export default class MainScreen extends Component {
 
     }
 
-    toggle() {
-
-    }
-
     //Lets remember initial coordinate to return map view when modal closes
     onRegionChange(region) {
         console.log(region);
         this.setState({ userCurrentRegion: region });
     }
 
-
     //Lets remember initial coordinate to return map view when modal closes
     onGetOrder() {
         let pixelheight = dim.height * PixelRatio.get();
         let pixelwidth = dim.width * PixelRatio.get();
         let y = (pixelheight / 2 + ((pixelheight - pixelheight * (0.25 + 0.20)) / 2 - (pixelheight - pixelheight * (0.7 + 0.2)) / 2));
-        //if (y > dim.height) {
-        //}
         let x = pixelwidth * 0.5;
+
+        //Move Marker To Top
         Animated.timing(
             this.state.yMarkerPosition,
             {
                 duration: 300,
-                toValue: (dim.height - dim.height * (0.7 + 0.2)) / 2,
+                toValue: sizeconsts.PIN_TOP_POSITION,
             }
         ).start();
+
+        //Move Button Down
+        Animated.timing(
+            this.makeOrderButtonYPosition,
+            {
+                duration: 300,
+                toValue: -dim.height * 0.1,
+            }
+        ).start();
+
+        //Lets remember initial position
         this.initialPosition = this.state.userCurrentRegion;
-        this.refs.map.getProjection(Math.round(x), Math.round(y), 300);
+
+        //Move to projection
+        this.refs.map.getProjection(
+            Math.round(sizeconsts.PIN_DELTA_X_PIXEL_POSITION),
+            Math.round(sizeconsts.PIN_DELTA_Y_PIXEL_POSITION), 300
+        );
         this._modal.expandModal();
     }
 
     onOrderModalClose() {
-        //var initialPosition = JSON.stringify(position);
-        /*let c = {
-            latitude: Number(position.coords.latitude), // selected marker lat
-            longitude: Number(position.coords.longitude) // selected marker lng
-        }
-        console.log(c);*/
-        //var { region } = this.state.userCurrentRegion;
         Animated.timing(
             this.state.yMarkerPosition,
             {
                 duration: 300,
-                toValue: dim.height * 0.3,
+                toValue: sizeconsts.PIN_BOTTOM_POSITION,
             }
         ).start();
+
+        Animated.timing(
+            this.makeOrderButtonYPosition,
+            {
+                duration: 300,
+                toValue: dim.height * 0.02,
+            }
+        ).start();
+
         this.refs.map.animateToRegion(this.initialPosition, 300);
-        //this.setState({ userCurrentRegion: this.state.initialPosition });
-        /*let y = (dim.height * 1.05 );
-        let x = dim.width * 0.5;
-        this.refs.map.getProjection(x, y, 300);*/
     }
 
     render() {
-        const spin = this.state.spinValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg', '360deg']
-        })
-
         let hambutton = null;
         let pinmarker = null;
         let makeOrderButton = null;
@@ -180,13 +131,15 @@ export default class MainScreen extends Component {
                 <OrderModal ref={(ref) => this._modal = ref} onClose={() => { this.onOrderModalClose() } }/>
             )
             makeOrderButton = (
-                <Button text={"ЗАКАЗАТЬ"}
-                    isEnabled={true}
-                    rootStyle={styles.buttonRoot}
-                    container={styles.buttonContainer}
-                    textStyle={keyboardViewStyles.buttonText}
-                    disabledTextStyle={keyboardViewStyles.buttonDisabledText}
-                    onPress={() => { this.onGetOrder(); } } />
+                <Animated.View style={[styles.buttonRoot, { bottom: this.makeOrderButtonYPosition }]}>
+                    <Button text={"ЗАКАЗАТЬ"}
+                        isEnabled={true}
+                        rootStyle={{ flex: 1, margin: 0, }}
+                        container={styles.buttonContainer}
+                        textStyle={styles.buttonText}
+                        disabledTextStyle={styles.buttonDisabledText}
+                        onPress={() => { this.onGetOrder(); } } />
+                </Animated.View>
             )
             pinmarker = (
                 <PinIcon style={{
