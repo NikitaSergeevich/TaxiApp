@@ -13,6 +13,8 @@ import Interactable from 'react-native-interactable';
 
 import GeoField from './geofield';
 import RateField from './ratefield';
+import TypeAndPaymentTypeField from './typeandpaymenttypefield';
+import CommentField from './commentfield';
 
 import { orderModalStyles as styles, sizeconsts } from '../resources/styles';
 
@@ -117,6 +119,11 @@ export default class OrderModal extends Component {
                 <Animated.View style={[styles.modalBody, { height: this.height }]}>
                     <GeoField/>
                     <RateField/>
+                    <TypeAndPaymentTypeField/>
+                    <CommentField/>
+                    <View style={styles.letsgoFieldStyle}>
+
+                    </View>
                 </Animated.View>
             </Animated.View >
         );

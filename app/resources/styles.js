@@ -116,29 +116,31 @@ export const screenStyles = StyleSheet.create({
 
 const pixelheight = dim.height * PixelRatio.get();
 const pixelwidth = dim.width * PixelRatio.get();
+const mbh = 0.20;
+const maxch = 0.76;
 
 export const sizeconsts = {
-    MAX_CONTAINER_HEIGHT: dim.height * 0.7,
+    MAX_CONTAINER_HEIGHT: dim.height * maxch,
     TOUCH_HEIGHT: 60, //attention, touch toungue!
-    MIN_CONTAINER_HEIGHT: dim.height * 0.25,
-    MIN_BODY_HEIGHT: dim.height * 0.26,
+    MIN_CONTAINER_HEIGHT: dim.height * 0.30,
+    MIN_BODY_HEIGHT: dim.height * mbh,
     BOTTOM_MODAL_CLOSED_POSITION: dim.height * 0.10,
     BOTTOM_MODAL_OPEN_POSITION: dim.height * 0,
 
-    RATE_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
-    TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
-    COMMENT_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
-    LETS_GO_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
+    RATE_FIELD_HEIGHT: dim.height * 0.1,
+    TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT: dim.height * 0.08,
+    COMMENT_FIELD_HEIGHT: dim.height * 0.18,
+    LETS_GO_FIELD_HEIGHT: dim.height * 0.1,
 
     //Buttons
     TAKE_ORDER_TOP_POSITION: dim.height * 0.02,
-    PIN_BOTTOM_POSITION: (dim.height - dim.height * (0.26 + 0.10)) / 2, //dependend
-    PIN_TOP_POSITION: (dim.height - dim.height * (0.7 + 0.10)) / 2, //dependend
+    PIN_BOTTOM_POSITION: (dim.height - dim.height * (mbh + 0.10)) / 2, //dependend
+    PIN_TOP_POSITION: (dim.height - (dim.height * (maxch) + 75)) / 2, //dependend why 73 not 60?
     PIN_DELTA_X_PIXEL_POSITION: pixelwidth * 0.5,
-    PIN_DELTA_Y_PIXEL_POSITION: 
-        pixelheight / 2 + 
-        ((pixelheight - pixelheight * (0.26 + 0.1)) / 2 - 
-        (pixelheight - pixelheight * (0.7 + 0.1)) / 2)
+    PIN_DELTA_Y_PIXEL_POSITION:
+    pixelheight / 2 +
+    ((pixelheight - pixelheight * (mbh + 0.1)) / 2 -
+        (pixelheight - pixelheight * (maxch + 0.1)) / 2)
 }
 
 export const orderModalStyles = StyleSheet.create({
@@ -147,6 +149,7 @@ export const orderModalStyles = StyleSheet.create({
         position: 'absolute',
         left: '2%',
         right: '2%',
+        backgroundColor: 'transparent',
     },
     modalBody: {
         position: 'absolute',
@@ -154,7 +157,7 @@ export const orderModalStyles = StyleSheet.create({
         left: '3%',
         right: '3%',
         borderRadius: 10,
-        elevation: 12,
+        elevation: 8,
         backgroundColor: 'white',
     },
     toucharea: {
@@ -190,12 +193,27 @@ export const orderModalStyles = StyleSheet.create({
         backgroundColor: 'white',
     },
     commentFieldStyle: {
+        position: 'absolute',
+        top: sizeconsts.MIN_BODY_HEIGHT +
+        sizeconsts.RATE_FIELD_HEIGHT +
+        sizeconsts.TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT,
         height: sizeconsts.COMMENT_FIELD_HEIGHT,
-        backgroundColor: 'white',
+        left: 0,
+        right: 0,
+        backgroundColor: 'transparent',
     },
     letsgoFieldStyle: {
+        position: 'absolute',
+        top: sizeconsts.MIN_BODY_HEIGHT +
+        sizeconsts.RATE_FIELD_HEIGHT +
+        sizeconsts.TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT +
+        sizeconsts.COMMENT_FIELD_HEIGHT,
+        left: 0,
+        right: 0,
         height: sizeconsts.LETS_GO_FIELD_HEIGHT,
-        backgroundColor: 'transparent',
+        backgroundColor: '#00BAE3',
+        borderBottomRightRadius: 12,
+        borderBottomLeftRadius: 12,
     },
 })
 

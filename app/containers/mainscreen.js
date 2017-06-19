@@ -55,64 +55,65 @@ export default class MainScreen extends Component {
 
     //Lets remember initial coordinate to return map view when modal closes
     onRegionChange(region) {
-        console.log(region);
         this.setState({ userCurrentRegion: region });
     }
 
     //Lets remember initial coordinate to return map view when modal closes
     onGetOrder() {
-        let pixelheight = dim.height * PixelRatio.get();
-        let pixelwidth = dim.width * PixelRatio.get();
-        let y = (pixelheight / 2 + ((pixelheight - pixelheight * (0.25 + 0.20)) / 2 - (pixelheight - pixelheight * (0.7 + 0.2)) / 2));
-        let x = pixelwidth * 0.5;
-
-        //Move Marker To Top
-        Animated.timing(
-            this.state.yMarkerPosition,
-            {
-                duration: 300,
-                toValue: sizeconsts.PIN_TOP_POSITION,
-            }
-        ).start();
-
-        //Move Button Down
-        Animated.timing(
-            this.makeOrderButtonYPosition,
-            {
-                duration: 300,
-                toValue: -dim.height * 0.1,
-            }
-        ).start();
 
         //Lets remember initial position
         this.initialPosition = this.state.userCurrentRegion;
 
-        //Move to projection
+        //Move to projection timeout?\
         this.refs.map.getProjection(
             Math.round(sizeconsts.PIN_DELTA_X_PIXEL_POSITION),
             Math.round(sizeconsts.PIN_DELTA_Y_PIXEL_POSITION), 300
         );
-        this._modal.expandModal();
+
+        setTimeout(() => {
+            Animated.parallel([
+                //Move Marker To Top
+                Animated.timing(
+                    this.state.yMarkerPosition,
+                    {
+                        duration: 300,
+                        toValue: sizeconsts.PIN_TOP_POSITION,
+                    }
+                ),
+                //Move Button Down
+                Animated.timing(
+                    this.makeOrderButtonYPosition,
+                    {
+                        duration: 300,
+                        toValue: -dim.height * 0.1,
+                    }
+                )
+            ]).start();
+            this._modal.expandModal();
+        }, 300)
+
     }
 
     onOrderModalClose() {
-        Animated.timing(
-            this.state.yMarkerPosition,
-            {
-                duration: 300,
-                toValue: sizeconsts.PIN_BOTTOM_POSITION,
-            }
-        ).start();
-
-        Animated.timing(
-            this.makeOrderButtonYPosition,
-            {
-                duration: 300,
-                toValue: dim.height * 0.02,
-            }
-        ).start();
-
         this.refs.map.animateToRegion(this.initialPosition, 300);
+        Animated.parallel([
+            //Move Marker Down
+            Animated.timing(
+                this.state.yMarkerPosition,
+                {
+                    duration: 300,
+                    toValue: sizeconsts.PIN_BOTTOM_POSITION,
+                }
+            ),
+            //Move Button Up
+            Animated.timing(
+                this.makeOrderButtonYPosition,
+                {
+                    duration: 300,
+                    toValue: dim.height * 0.02,
+                }
+            )
+        ]).start();
     }
 
     render() {
