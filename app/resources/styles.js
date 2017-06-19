@@ -114,30 +114,116 @@ export const screenStyles = StyleSheet.create({
     },
 })
 
-export const keyboardViewStyles = StyleSheet.create({
-    keyboardViewContainer: {
-        flex: 1,
+const pixelheight = dim.height * PixelRatio.get();
+const pixelwidth = dim.width * PixelRatio.get();
+
+export const sizeconsts = {
+    MAX_CONTAINER_HEIGHT: dim.height * 0.7,
+    TOUCH_HEIGHT: 60, //attention, touch toungue!
+    MIN_CONTAINER_HEIGHT: dim.height * 0.25,
+    MIN_BODY_HEIGHT: dim.height * 0.26,
+    BOTTOM_MODAL_CLOSED_POSITION: dim.height * 0.10,
+    BOTTOM_MODAL_OPEN_POSITION: dim.height * 0,
+
+    RATE_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
+    TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
+    COMMENT_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
+    LETS_GO_FIELD_HEIGHT: dim.height * 0.35 * 0.33,
+
+    //Buttons
+    TAKE_ORDER_TOP_POSITION: dim.height * 0.02,
+    PIN_BOTTOM_POSITION: (dim.height - dim.height * (0.26 + 0.10)) / 2, //dependend
+    PIN_TOP_POSITION: (dim.height - dim.height * (0.7 + 0.10)) / 2, //dependend
+    PIN_DELTA_X_PIXEL_POSITION: pixelwidth * 0.5,
+    PIN_DELTA_Y_PIXEL_POSITION: 
+        pixelheight / 2 + 
+        ((pixelheight - pixelheight * (0.26 + 0.1)) / 2 - 
+        (pixelheight - pixelheight * (0.7 + 0.1)) / 2)
+}
+
+export const orderModalStyles = StyleSheet.create({
+    // Modal Body
+    modalContainer: {
+        position: 'absolute',
+        left: '2%',
+        right: '2%',
     },
-    upperView: {
-        marginTop: 80, //TODO
-        flex: 1,
-        paddingLeft: 16 //TODO
+    modalBody: {
+        position: 'absolute',
+        bottom: '4%',
+        left: '3%',
+        right: '3%',
+        borderRadius: 10,
+        elevation: 12,
+        backgroundColor: 'white',
     },
-    buttonRoot: {
+    toucharea: {
+        flex: 1,
+        backgroundColor: 'transparent'
+    },
+
+    //Field
+    geoFieldStyle: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        height: sizeconsts.MIN_BODY_HEIGHT,
+        borderRadius: 20,
+        backgroundColor: 'transparent',
+    },
+    rateFieldStyle: {
+        position: 'absolute',
+        top: sizeconsts.MIN_BODY_HEIGHT,
+        left: 0,
+        right: 0,
+        height: sizeconsts.RATE_FIELD_HEIGHT,
+        justifyContent: 'center',
+        backgroundColor: 'white',
+    },
+    timeandpaymenttypeFieldStyle: {
+        position: 'absolute',
+        top: sizeconsts.MIN_BODY_HEIGHT + sizeconsts.RATE_FIELD_HEIGHT,
+        left: 0,
+        right: 0,
+        height: sizeconsts.TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT,
         flexDirection: 'row',
-        margin: -1
+        backgroundColor: 'white',
+    },
+    commentFieldStyle: {
+        height: sizeconsts.COMMENT_FIELD_HEIGHT,
+        backgroundColor: 'white',
+    },
+    letsgoFieldStyle: {
+        height: sizeconsts.LETS_GO_FIELD_HEIGHT,
+        backgroundColor: 'transparent',
+    },
+})
+
+export const mainScreenStyles = StyleSheet.create({
+    //Order Button
+    buttonRoot: {
+        position: 'absolute',
+        alignSelf: 'center',
+        height: '8.5%',
+        width: '39%',
+        margin: 0,
+        padding: 2,
     },
     buttonContainer: {
+        elevation: 2,
+        margin: 3,
+        marginRight: 4,
+        marginLeft: 4,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: 'transparent',
-        backgroundColor: '#2196F3', //TODO
+        borderColor: '#00BAE3',
+        backgroundColor: '#00BAE3', //TODO
         flexDirection: 'row',
-        borderRadius: 0,
+        borderRadius: 6,
         flex: 1,
     },
     buttonText: {
-        fontSize: 16, //TODO
+        fontSize: 13, //TODO
         marginRight: 10, //TODO
         marginLeft: 10, //TODO
         marginTop: 12, //TODO
@@ -150,85 +236,3 @@ export const keyboardViewStyles = StyleSheet.create({
     }
 })
 
-const expandedContainerHeigth = dim.height * 0.60;
-const filedStyle = dim.height * 0.35 * 0.22;
-const filedCommentHeigth = dim.height * 0.35 * 0.33;
-
-export const orderModalStyles = StyleSheet.create({
-
-    // Modal Body
-
-    modalContainer: {
-        position: 'absolute',
-        bottom: '20%',
-        left: '7%',
-        right: '7%',
-        backgroundColor: 'transparent',
-    },
-    modalCollapsed: {
-        height: dim.height * 0.25 + dim.height * 0.05 + dim.height * 0.07,
-    },
-    modalExpanded: {
-        height: expandedContainerHeigth, //Expanded
-    },
-    modalBody: {
-        backgroundColor: 'white',
-        borderRadius: 20,
-    },
-    modalBodyCollapsed: {
-        height: dim.height * 0.25,
-    },
-    modalBodyExpanded: {
-        height: expandedContainerHeigth, //Expanded
-    },
-
-    // Fileds style
-    fieldStyle: {
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey'
-    },
-    geoFieldStyle: {
-        borderRadius: 20,
-        backgroundColor: 'white',
-        height: dim.height * 0.25,
-    },
-    rateFieldStyle: {
-        height: filedStyle,
-        backgroundColor: 'white',
-    },
-    timeandpaymenttypeFieldStyle: {
-        height: filedStyle,
-        backgroundColor: 'white',
-        flexDirection: 'row'
-    },
-    commentFieldStyle: {
-        height: filedCommentHeigth,
-        backgroundColor: 'white',
-    },
-    letsgoFieldStyle: {
-        height: filedStyle,
-        backgroundColor: 'transparent',
-    },
-
-    //Order Button
-    buttonRoot: {
-        position: 'absolute',
-        bottom: '1%',
-        alignSelf: 'center',
-        height: '9.5%',
-        width: '50.5%',
-        flexDirection: 'row',
-        margin: 0,
-        padding: 2,
-    },
-    buttonContainer: {
-        //elevation: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderColor: 'transparent',
-        backgroundColor: '#2196F3', //TODO
-        flexDirection: 'row',
-        borderRadius: 10,
-        flex: 1,
-    },
-})

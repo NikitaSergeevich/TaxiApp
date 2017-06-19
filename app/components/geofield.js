@@ -11,9 +11,11 @@ import {
     TouchableOpacity,
     StyleSheet
 } from "react-native";
+
+import LocationInput from './locationinput';
 import { orderModalStyles as styles } from '../resources/styles';
 
-export default class ControlPanelButton extends Component {
+export default class GeoField extends Component {
 
     constructor(props) {
         super(props);
@@ -21,7 +23,8 @@ export default class ControlPanelButton extends Component {
 
     static get defaultProps() {
         return {
-            handlePress: () => { }
+            handlePress: () => { },
+            isExpanded: false,
         };
     }
 
@@ -34,7 +37,7 @@ export default class ControlPanelButton extends Component {
             <View style={[
                 styles.fieldStyle,
                 styles.geoFieldStyle,
-                this.state.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}>
+                this.props.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}>
                 <LocationInput />
                 <LocationInput />
                 <View style={{

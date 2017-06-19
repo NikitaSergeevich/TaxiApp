@@ -9,28 +9,40 @@ const dim = Dimensions.get('window');
 export default class GeoIcon extends Component {
 
     render() {
-        let height = "";
-        let width = "";
-        let scale = 0.5;
-
         let ratio = PixelRatio.get();
+        let source_active = '';
+        let source_inactive = '';
         switch (ratio) {
-            case 1:
-                size = getMDPISize(dim);
-                height = size.height;
-                width = size.width;
-                scale = size.scale;
+            case 0:
+                source_active = require('../images/drawable-ldpi/ic_minipin_active.png');
+                source_inactive = require('../images/drawable-ldpi/ic_minipin_inactive.png');
                 break;
+            /*case 1:
+                source_active = require('../images/drawable-mdpi/pin.png');
+                break;
+            case 1.5:
+                source_active = require('../images/drawable-hdpi/pin.png');
+                break;*/
+            case 2:
+                source_active = require('../images/drawable-mdpi/ic_minipin_active.png');
+                source_inactive = require('../images/drawable-mdpi/ic_minipin_inactive.png');
+                break;
+            case 3:
+                source_active = require('../images/drawable-mdpi/ic_minipin_active.png');
+                source_inactive = require('../images/drawable-mdpi/ic_minipin_inactive.png');
+                break;
+            /*case 3.5:
+                source_active = require('../images/drawable-xxxhdpi/pin.png');
+                break;*/
             default:
                 break;
         }
 
         let icon = null;
-
         if (this.props.isActive) {
-            icon = <Image source={require('../images/drawable-hdpi/ic_minipin_active.png')} />;
+            icon = <Image source={source_active} />;
         } else {
-            icon = <Image source={require('../images/drawable-hdpi/ic_minipin_inactive.png')} />;
+            icon = <Image source={source_inactive} />;
         }
 
         return (

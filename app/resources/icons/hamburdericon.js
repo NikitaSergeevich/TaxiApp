@@ -25,7 +25,7 @@ export default class HamburderIcon extends Component {
                 source = require('../images/drawable-mdpi/ic_menu.png');
                 break;
             case 3:
-                source = require('../images/drawable-hdpi/ic_menu.png');
+                source = require('../images/drawable-mdpi/ic_menu.png');
                 break;
             /*case 3.5:
                 source = require('../images/drawable-xxxhdpi/pin.png');
