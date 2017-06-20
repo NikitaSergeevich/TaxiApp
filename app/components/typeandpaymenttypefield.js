@@ -41,19 +41,21 @@ export default class TypeAndPaymentTypeField extends Component {
                         backgroundColor: 'transparent'
                     }}>
                         <View style={{
-                            flex: 2,
+                            marginLeft: '10%',
+                            marginRight: '5%',
+                            width: '20%',
                             backgroundColor: 'transparent',
                             justifyContent: 'center'
                         }}>
                             <TimeIcon isActive={this.props.isSet} />
                         </View>
                         <View style={{
-                            flex: 3,
+                            width: '60%',
                             backgroundColor: 'transparent',
                             justifyContent: 'center',
                             alignItems: 'flex-start'
                         }}>
-                            <Text style={{ fontSize: 16, color: '#4E7F9D' }}>
+                            <Text style={{ fontSize: 12, color: '#4E7F9D' }}>
                                 {"Ближайшие"}
                             </Text>
                         </View>
@@ -66,24 +68,35 @@ export default class TypeAndPaymentTypeField extends Component {
                         backgroundColor: 'transparent'
                     }}>
                         <View style={{
-                            flex: 2,
+                            marginLeft: '10%',
+                            marginRight: '5%',
+                            width: '20%',
                             backgroundColor: 'transparent',
                             justifyContent: 'center'
                         }}>
                             <PaymentTypeIcon style={{ alignSelf: 'center' }} />
                         </View>
                         <View style={{
-                            flex: 3,
+                            width: '60%',
                             backgroundColor: 'transparent',
                             justifyContent: 'center',
                             alignItems: 'flex-start'
                         }}>
-                            <Text style={{ fontSize: 16, color: '#4E7F9D' }}>
+                            <Text style={{ fontSize: 12, color: '#4E7F9D' }}>
                                 {"Наличные"}
                             </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
+                <View style={{
+                    backgroundColor: '#00000029',
+                    position: 'absolute',
+                    left: '5%',
+                    right: '5%',
+                    bottom: 0,
+                    height: 1,
+                    alignSelf: 'center'
+                }} />
             </View>
         )
     }

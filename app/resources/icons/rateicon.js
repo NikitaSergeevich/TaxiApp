@@ -22,10 +22,10 @@ export default class RateIcon extends Component {
                 source = require('../images/drawable-hdpi/pin.png');
                 break;*/
             case 2:
-                source = require('../images/drawable-mdpi/ic_standart.png');
+                source = require('../images/drawable-ldpi/ic_standart.png');
                 break;
             case 3:
-                source = require('../images/drawable-mdpi/ic_standart.png');
+                source = require('../images/drawable-ldpi/ic_standart.png');
                 break;
             /*case 3.5:
                 source = require('../images/drawable-xxxhdpi/pin.png');

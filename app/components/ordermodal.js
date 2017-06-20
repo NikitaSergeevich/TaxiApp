@@ -28,9 +28,9 @@ export default class OrderModal extends Component {
         this.height = new Animated.Value(sizeconsts.MIN_BODY_HEIGHT); // Body height (visible)
         this._deltaY.addListener(({value}) => {
             //When touch toungue is moving we updating body height
-            let result = sizeconsts.MAX_CONTAINER_HEIGHT - value - 60;
-            if (result < sizeconsts.MIN_CONTAINER_HEIGHT) {
-                result = sizeconsts.MIN_CONTAINER_HEIGHT;
+            let result = sizeconsts.MAX_CONTAINER_HEIGHT - value - sizeconsts.TOUCH_HEIGHT;
+            if (result < sizeconsts.MIN_BODY_HEIGHT) {
+                result = sizeconsts.MIN_BODY_HEIGHT;
             }
             this.height.setValue(result);
         });
@@ -58,7 +58,7 @@ export default class OrderModal extends Component {
             this.height,
             {
                 duration: 300,
-                toValue: sizeconsts.MAX_CONTAINER_HEIGHT - 60,
+                toValue: sizeconsts.MAX_CONTAINER_HEIGHT - sizeconsts.TOUCH_HEIGHT,
             }
         ).start(() => { this.setState({ isExpanded: true }) });
 
@@ -75,7 +75,6 @@ export default class OrderModal extends Component {
     onSnap(event) {
         const snapPointId = event.nativeEvent.id;
         if (snapPointId == 'close') {
-
             // Move container to bottom
             Animated.timing(
                 this.modalContainerYPosition,
@@ -101,7 +100,7 @@ export default class OrderModal extends Component {
                 <Interactable.View
                     style={styles.toucharea}
                     verticalOnly={true}
-                    snapPoints={[{ y: 0, id: 'open' }, { y: sizeconsts.MAX_CONTAINER_HEIGHT - sizeconsts.MIN_BODY_HEIGHT, id: 'close' }]}
+                    snapPoints={[{ y: 0, id: 'open' }, { y: sizeconsts.MAX_CONTAINER_HEIGHT - sizeconsts.MIN_BODY_HEIGHT - sizeconsts.TOUCH_HEIGHT, id: 'close' }]}
                     onSnap={(e) => { this.onSnap(e) } }
                     boundaries={{ top: 0 }}
                     animatedValueY={this._deltaY}>
@@ -121,9 +120,13 @@ export default class OrderModal extends Component {
                     <RateField/>
                     <TypeAndPaymentTypeField/>
                     <CommentField/>
-                    <View style={styles.letsgoFieldStyle}>
-
-                    </View>
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        style={styles.letsgoFieldStyle}>
+                        <Text style={{ fontSize: 16, color: 'white' }}>
+                            {"Поехали"}
+                        </Text>
+                    </TouchableOpacity>
                 </Animated.View>
             </Animated.View >
         );

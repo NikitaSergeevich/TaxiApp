@@ -9,25 +9,32 @@ const dim = Dimensions.get('window');
 export default class QuotesIcon extends Component {
 
     render() {
-        let height = "";
-        let width = "";
-        let scale = 0.5;
-
         let ratio = PixelRatio.get();
+        let source = '';
         switch (ratio) {
-            case 1:
-                size = getMDPISize(dim);
-                height = size.height;
-                width = size.width;
-                scale = size.scale;
+            case 0:
+                source = require('../images/drawable-ldpi/ic_quote_inactive.png');
                 break;
+            /*case 1:
+                source = require('../images/drawable-mdpi/pin.png');
+                break;
+            case 1.5:
+                source = require('../images/drawable-hdpi/pin.png');
+                break;*/
+            case 2:
+                source = require('../images/drawable-mdpi/ic_quote_inactive.png');
+                break;
+            case 3:
+                source = require('../images/drawable-mdpi/ic_quote_inactive.png');
+                break;
+            /*case 3.5:
+                source = require('../images/drawable-xxxhdpi/pin.png');
+                break;*/
             default:
                 break;
         }
 
-        let icon = null;
-
-        icon = <Image source={require('../images/drawable-hdpi/ic_quote_inactive.png')} />;
+        let icon = <Image source={source} />;
 
         return (
             <View style={{ alignItems: 'center' }}>

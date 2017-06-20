@@ -41,10 +41,10 @@ export default class GeoField extends Component {
                 <LocationInput />
                 <LocationInput />
                 <View style={{
-                    backgroundColor: '#4E7F9D55',
+                    backgroundColor: '#00000029',
                     position: 'absolute',
-                    left: '4%',
-                    right: '4%',
+                    left: '5%',
+                    right: '5%',
                     bottom: 0,
                     height: 1,
                     alignSelf: 'center'

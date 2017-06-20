@@ -28,8 +28,8 @@ export default class GeoIcon extends Component {
                 source_inactive = require('../images/drawable-mdpi/ic_minipin_inactive.png');
                 break;
             case 3:
-                source_active = require('../images/drawable-mdpi/ic_minipin_active.png');
-                source_inactive = require('../images/drawable-mdpi/ic_minipin_inactive.png');
+                source_active = require('../images/drawable-ldpi/ic_minipin_active.png');
+                source_inactive = require('../images/drawable-ldpi/ic_minipin_inactive.png');
                 break;
             /*case 3.5:
                 source_active = require('../images/drawable-xxxhdpi/pin.png');

@@ -60,7 +60,6 @@ export default class MainScreen extends Component {
 
     //Lets remember initial coordinate to return map view when modal closes
     onGetOrder() {
-
         //Lets remember initial position
         this.initialPosition = this.state.userCurrentRegion;
 

@@ -121,26 +121,26 @@ const maxch = 0.76;
 
 export const sizeconsts = {
     MAX_CONTAINER_HEIGHT: dim.height * maxch,
-    TOUCH_HEIGHT: 60, //attention, touch toungue!
+    TOUCH_HEIGHT: dim.height * 0.09, //attention, touch toungue!
     MIN_CONTAINER_HEIGHT: dim.height * 0.30,
     MIN_BODY_HEIGHT: dim.height * mbh,
     BOTTOM_MODAL_CLOSED_POSITION: dim.height * 0.10,
     BOTTOM_MODAL_OPEN_POSITION: dim.height * 0,
 
     RATE_FIELD_HEIGHT: dim.height * 0.1,
-    TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT: dim.height * 0.08,
-    COMMENT_FIELD_HEIGHT: dim.height * 0.18,
-    LETS_GO_FIELD_HEIGHT: dim.height * 0.1,
+    TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT: dim.height * 0.1,
+    COMMENT_FIELD_HEIGHT: dim.height * 0.17,
+    LETS_GO_FIELD_HEIGHT: dim.height * 0.11,
 
     //Buttons
     TAKE_ORDER_TOP_POSITION: dim.height * 0.02,
     PIN_BOTTOM_POSITION: (dim.height - dim.height * (mbh + 0.10)) / 2, //dependend
-    PIN_TOP_POSITION: (dim.height - (dim.height * (maxch) + 75)) / 2, //dependend why 73 not 60?
+    PIN_TOP_POSITION: (dim.height - (dim.height * (maxch + 0.14))) / 2, //dependend why 73 not 60?
     PIN_DELTA_X_PIXEL_POSITION: pixelwidth * 0.5,
     PIN_DELTA_Y_PIXEL_POSITION:
     pixelheight / 2 +
     ((pixelheight - pixelheight * (mbh + 0.1)) / 2 -
-        (pixelheight - pixelheight * (maxch + 0.1)) / 2)
+        (pixelheight - pixelheight * (maxch + 0.1)) / 2) // dependent + pixelheight
 }
 
 export const orderModalStyles = StyleSheet.create({
@@ -171,6 +171,8 @@ export const orderModalStyles = StyleSheet.create({
         left: 0,
         right: 0,
         height: sizeconsts.MIN_BODY_HEIGHT,
+        paddingTop: '4%',
+        paddingBottom: '4%',
         borderRadius: 20,
         backgroundColor: 'transparent',
     },
@@ -181,7 +183,7 @@ export const orderModalStyles = StyleSheet.create({
         right: 0,
         height: sizeconsts.RATE_FIELD_HEIGHT,
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
     },
     timeandpaymenttypeFieldStyle: {
         position: 'absolute',
@@ -190,7 +192,7 @@ export const orderModalStyles = StyleSheet.create({
         right: 0,
         height: sizeconsts.TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT,
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
     },
     commentFieldStyle: {
         position: 'absolute',
@@ -203,17 +205,17 @@ export const orderModalStyles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     letsgoFieldStyle: {
-        position: 'absolute',
-        top: sizeconsts.MIN_BODY_HEIGHT +
+        marginTop: sizeconsts.MIN_BODY_HEIGHT +
         sizeconsts.RATE_FIELD_HEIGHT +
         sizeconsts.TIME_AND_PAYMENT_TYPE_FIELD_HEIGHT +
         sizeconsts.COMMENT_FIELD_HEIGHT,
-        left: 0,
-        right: 0,
+        flex: 1,
         height: sizeconsts.LETS_GO_FIELD_HEIGHT,
         backgroundColor: '#00BAE3',
-        borderBottomRightRadius: 12,
-        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })
 

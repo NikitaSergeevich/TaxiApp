@@ -35,13 +35,29 @@ export default class CommentField extends Component {
     render() {
         return (
             <View style={styles.commentFieldStyle}>
-                <TouchableOpacity style={{ flex: 1, paddingTop: 20 }} onPress={() => { } }>
-                    <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'transparent' }}>
-                        <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => { } }>
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        backgroundColor: 'transparent'
+                    }}>
+                        <View style={{
+                            flex: 1,
+                            paddingTop: '3%',
+                            backgroundColor: 'transparent',
+                            justifyContent: 'flex-start',
+                            alignItems: 'flex-end'
+                        }}>
                             <QuotesIcon style={{ alignSelf: 'center' }} />
                         </View>
-                        <View style={{ flex: 7, paddingTop: 30, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                            <Text style={{ color: 'black', fontSize: 10 }}>
+                        <View style={{
+                            flex: 9,
+                            backgroundColor: 'transparent',
+                            justifyContent: 'flex-start',
+                            paddingTop: '8%',
+                            paddingLeft: '2%',
+                        }}>
+                            <Text style={{ color: '#B6C6D2', fontSize: 14, fontStyle: 'italic' }}>
                                 {"Оставьте комментарий"}
                             </Text>
                         </View>
