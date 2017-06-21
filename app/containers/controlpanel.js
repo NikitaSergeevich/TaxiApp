@@ -66,7 +66,7 @@ export class ControlPanel extends Component {
                         <Text style={{
                             fontSize: 14,
                             color: 'white',
-                            fontWeight: '500'
+                            fontWeight: '100'
                         }}>
                             {"Выйти"}
                         </Text>

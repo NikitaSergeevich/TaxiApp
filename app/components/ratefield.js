@@ -55,6 +55,15 @@ export default class RateField extends Component {
                         height: 1,
                         alignSelf: 'center'
                     }} />
+                    <View style={{
+                        backgroundColor: '#00000029',
+                        position: 'absolute',
+                        left: '5%',
+                        right: '5%',
+                        top: 0,
+                        height: 1,
+                        alignSelf: 'center'
+                    }} />
                 </TouchableOpacity>
             </View>
         )

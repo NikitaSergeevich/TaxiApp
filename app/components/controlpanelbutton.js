@@ -52,7 +52,6 @@ export default class ControlPanelButton extends Component {
                         <Text style={{
                             fontSize: 14,
                             color: 'white',
-                            fontWeight: '500'
                         }}>
                             {this.props.text}
                         </Text>

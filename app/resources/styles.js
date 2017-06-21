@@ -134,8 +134,8 @@ export const sizeconsts = {
 
     //Buttons
     TAKE_ORDER_TOP_POSITION: dim.height * 0.02,
-    PIN_BOTTOM_POSITION: (dim.height - dim.height * (mbh + 0.10)) / 2, //dependend
-    PIN_TOP_POSITION: (dim.height - (dim.height * (maxch + 0.14))) / 2, //dependend why 73 not 60?
+    PIN_BOTTOM_POSITION: (dim.height - dim.height * (mbh + 0.10 + 0.28)) / 2, //dependend
+    PIN_TOP_POSITION: (dim.height - dim.height * (maxch + 0.14 + 0.28)) / 2, //dependend why 73 not 60?
     PIN_DELTA_X_PIXEL_POSITION: pixelwidth * 0.5,
     PIN_DELTA_Y_PIXEL_POSITION:
     pixelheight / 2 +

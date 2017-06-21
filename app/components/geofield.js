@@ -40,15 +40,6 @@ export default class GeoField extends Component {
                 this.props.isExpanded ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}]}>
                 <LocationInput />
                 <LocationInput />
-                <View style={{
-                    backgroundColor: '#00000029',
-                    position: 'absolute',
-                    left: '5%',
-                    right: '5%',
-                    bottom: 0,
-                    height: 1,
-                    alignSelf: 'center'
-                }} />
             </View >
         )
     }

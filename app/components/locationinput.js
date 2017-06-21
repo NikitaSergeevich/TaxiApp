@@ -34,7 +34,7 @@ export default class LocationInput extends Component {
                         <GeoIcon isActive={this.state.isSet} style={{ alignSelf: 'center' }} />
                     </View>
                     <View style={{ width: '75%', backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'flex-start' }}>
-                        <Text style={{ color: '#4E7F9D', fontSize: 15, fontStyle: this.state.isSet ? 'normal' : 'italic' }}>
+                        <Text style={{ color: '#4E7F9D', fontSize: 15, fontStyle: 'normal'}}>
                             {this.state.isSet ? "Ул. Фрунзе 86" : "Куда поедем?"}
                         </Text>
                     </View>
